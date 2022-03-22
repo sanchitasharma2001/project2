@@ -1,7 +1,6 @@
 const mongoose = require("mongoose")
 const ObjectId = mongoose.Schema.Types.ObjectId
-const validator = require("validator")
-const intern = mongoose.Schema({
+const internSchema = mongoose.Schema({
     isDeleted: {
         type: Boolean,
         default: false
@@ -15,16 +14,12 @@ const intern = mongoose.Schema({
         trim: true,
         required: "email is required",
         unique: true,
-        lowercase: true,
-        validate(value) {
-            if (!validator.isEmail(value)) {
-                throw new Error("Email is invalid");
-            }
-        }
+        lowercase: true
+        
     },
     mobile: {
         type: Number,
-        minlength: [10, 'Mimium 10numbers'],
+        unique: true
     },
     collegeId: {
         type: ObjectId,
@@ -33,7 +28,7 @@ const intern = mongoose.Schema({
     }
     
 }, { timestamps: true })
-module.exports = mongoose.model("internModel", internSchema)
+module.exports = mongoose.model("internsModel", internSchema)
 
 
 
